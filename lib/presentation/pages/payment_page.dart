@@ -100,10 +100,10 @@ class _PaymentPageBody extends StatelessWidget {
                 children: [
                   Expanded(
                     child: SingleChildScrollView(
-                      padding: const EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
+                          const SizedBox(height: 16),
                           PaymentMethodSelector(
                             selectedMethod: content.selectedMethod,
                             onTap: () async {
@@ -127,7 +127,7 @@ class _PaymentPageBody extends StatelessWidget {
                             },
                           ),
                           if (state.requiresPhone) ...[
-                            const SizedBox(height: 16),
+                            const SizedBox(height: 8),
                             PhoneInputField(
                               errorText: content.validationError,
                               onChanged: (val) => context
@@ -135,12 +135,9 @@ class _PaymentPageBody extends StatelessWidget {
                                   .add(PaymentEvent.phoneChanged(phone: val)),
                             ),
                           ],
+                          const SizedBox(height: 8),
+                          OrderSummary(order: content.order),
                           const SizedBox(height: 16),
-                          OrderSummary(
-                            order: content.order,
-                            totalSum: content.totalSum,
-                          ),
-                          const SizedBox(height: 24),
                         ],
                       ),
                     ),
@@ -150,14 +147,24 @@ class _PaymentPageBody extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       color: const Color(0xFFF8F8FB),
-                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                      child: PayButton(
-                        isLoading: content.isPaymentProcessing,
-                        onPressed: state.canPay
-                            ? () => context.read<PaymentBloc>().add(
-                                const PaymentEvent.payButtonPressed(),
-                              )
-                            : null,
+                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          OrderTotals(
+                            order: content.order,
+                            totalSum: content.totalSum,
+                          ),
+                          const SizedBox(height: 16),
+                          PayButton(
+                            isLoading: content.isPaymentProcessing,
+                            onPressed: state.canPay
+                                ? () => context.read<PaymentBloc>().add(
+                                    const PaymentEvent.payButtonPressed(),
+                                  )
+                                : null,
+                          ),
+                        ],
                       ),
                     ),
                   ),

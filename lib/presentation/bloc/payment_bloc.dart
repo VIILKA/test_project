@@ -115,8 +115,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
       if (!_validatePhone(phone)) {
         emit(
           currentState.copyWith(
-            validationError:
-                'Введите корректный номер телефона (начинается с 996, 12 цифр)',
+            validationError: 'Введите корректный номер телефона',
           ),
         );
         return;

@@ -14,10 +14,11 @@ class PayButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF3B40D6),
-          disabledBackgroundColor: Colors.grey.shade400,
+          backgroundColor: const Color(0xFF2738ED),
+          disabledBackgroundColor: const Color(0xFFD1D1D6),
+          elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(16),
           ),
         ),
         child: isLoading

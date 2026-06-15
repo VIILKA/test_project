@@ -45,6 +45,10 @@ class MockOrderDataSource implements OrderDataSource {
   }) async {
     await Future.delayed(const Duration(seconds: 2));
 
+    if (method == PaymentMethod.mbank || method == PaymentMethod.oDengi) {
+      throw Exception('Ошибка оплаты. Попробуйте позже');
+    }
+
     if (method == PaymentMethod.account) {
       final account = await getUserAccount();
       if (account.balance < totalSum) {
